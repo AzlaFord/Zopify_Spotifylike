@@ -1,5 +1,6 @@
 import  bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
+import clientPromise from "./mongodb";
 
 async function loginUser(email,parola) {
     try{
