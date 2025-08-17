@@ -1,5 +1,6 @@
 import  bcrypt from "bcryptjs";
 import clientPromise from "./mongodb";
+import jwt from "jsonwebtoken"
 
 const salt = await bcrypt.genSalt(10);
 const hash = await bcrypt.hash("B4c0/\/", salt);
@@ -21,12 +22,16 @@ async function createUser(nume, prenume, email, dataNastere, parola) {
             passwordHash: hash,
             createdAt: new Date()
         })
-        return { success: true, userId: result.insertedId };
+        const token = jwt.sign(
+            { userId: result.insertedId, email },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+        return { success: true, userId: result.insertedId,token };
 
     }catch(err){
-        console.error(err)
+        return { success: false, message: err.message || String(err) };
     }
-
 }
 
 export default createUser;
