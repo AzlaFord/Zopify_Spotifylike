@@ -32,4 +32,4 @@ async function uploadSongHandler(fileAudio, fileCover, title, artist, album) {
   }
 }
 
-export default uploadBytesResumable
+export default uploadSongHandler
