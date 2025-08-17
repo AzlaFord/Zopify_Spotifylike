@@ -1,4 +1,4 @@
-import uploadSongHandler from "@/app/lib/storageFirebase";
+import uploadSongHandler from "@/src/app/lib/storageFirebase";
 
 async function POST(request) {
     try{

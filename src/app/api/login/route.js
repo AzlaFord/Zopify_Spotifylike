@@ -1,4 +1,4 @@
-import loginUser from "@/app/lib/login";
+import loginUser from "@/src/app/lib/login";
 
 async function POST(request) {
     const data = await request.json()

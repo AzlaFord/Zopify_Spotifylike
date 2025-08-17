@@ -1,4 +1,4 @@
-import createUser from "@/app/lib/auth";
+import createUser from "@/src/app/lib/auth";
 
 async function POST(request) {
     const data = await request.json()
