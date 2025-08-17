@@ -13,7 +13,7 @@ async function createUser(nume, prenume, email, dataNastere, parola) {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(parola, salt);
 
-        await db.insertOne({
+        const result = await db.insertOne({
             nume,
             prenume,
             email,
@@ -21,6 +21,8 @@ async function createUser(nume, prenume, email, dataNastere, parola) {
             passwordHash: hash,
             createdAt: new Date()
         })
+        return { success: true, userId: result.insertedId };
+
     }catch(err){
         console.error(err)
     }

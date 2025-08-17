@@ -19,14 +19,17 @@ async function storeFile(file) {
     );
   });
 }
+
 async function uploadSongHandler(fileAudio, fileCover, title, artist, album) {
   try {
     const audioUrl = await storeFile(fileAudio);
     const coverUrl = await storeFile(fileCover);
     const result = await addSong(title, artist, album, audioUrl, coverUrl);
-    return {success:true,result}
+    return { success: true, songId: result.insertedId, audioUrl, coverUrl };
   } catch (err) {
     console.error(err);
     return { success: false, message: err.message };
   }
 }
+
+export default uploadBytesResumable
