@@ -23,15 +23,15 @@ export async function POST(request) {
 
 
         if (result.success) {
-            cookies().set("token", result.token, {
+            const cookieStore = await cookies()
+            cookieStore.set("token", result.token, {
                 httpOnly: true,
-                secure: true,
-                path: "/",
+                secure: process.env.NODE_ENV === "production",
                 maxAge: 60 * 60 * 24 * 7 
             });
 
             return new Response(
-                JSON.stringify({ success: true, message: "a mers bine", redirect: "/" }),
+                JSON.stringify({ success: true, message: "a mers bine" }),
                 { status: 200, headers: { "Content-Type": "application/json" } }
             );
         } else {
