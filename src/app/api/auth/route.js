@@ -3,7 +3,8 @@ import createUser from "@/src/app/lib/auth";
 export async function POST(request) {
     const data = await request.json()
     const {nume, email, dataNastere, parola} = data
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
     try{
         if(!nume){
             return new Response(JSON.stringify({message:"nu e completat capul cu numele"}),{
@@ -44,11 +45,20 @@ export async function POST(request) {
                 { status: 400, headers: { "Content-Type": "application/json" } }
             );
         }
+
         const result = await createUser(nume, email, dataNastere, parola)
-        return new Response(JSON.stringify({message:"a mers totul bine user creat",result}),{
-            status:200,
-            headers:{"Content-Type":"application/json"}
-        })
+
+        if(result.success){
+            return new Response(JSON.stringify({message:"a mers totul bine user creat",result}),{
+                status:200,
+                headers:{"Content-Type":"application/json"}
+            })
+        }else{
+            return new Response(JSON.stringify({message:result.message}),{
+                status:500,
+                headers:{"Content-Type":"application/json"}
+            })
+        }
     }catch(err){
         return new Response(JSON.stringify({message: err.message || String(err)}),{
             status:500,

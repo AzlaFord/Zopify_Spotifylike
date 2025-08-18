@@ -1,6 +1,7 @@
 import clientPromise from "./mongodb"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import userExists from "./userExists"
 
 async function createUser(nume, email, dataNastere, parola) {
   try {
@@ -10,7 +11,11 @@ async function createUser(nume, email, dataNastere, parola) {
 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(parola, salt)
+    const exista = await userExists(email)
 
+    if(!exista.success){
+        return {success:false,message:exista.message}
+    }
     const result = await users.insertOne({
       nume,
       email,
