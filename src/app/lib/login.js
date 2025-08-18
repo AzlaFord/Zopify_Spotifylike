@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import clientPromise from "./mongodb";
 
-async function loginUser({ email, parola }) {
+async function loginUser(email,parola ) {
     try {
         const client = await clientPromise;
         const db = client.db("Zopify").collection("users");

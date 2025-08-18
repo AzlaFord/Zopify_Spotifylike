@@ -1,6 +1,6 @@
 import createUser from "@/src/app/lib/auth";
 import loginUser from "../../lib/login";
-import { redirect } from 'next/navigation'
+
 export async function POST(request) {
     const data = await request.json()
     const {nume, email, dataNastere, parola} = data
@@ -51,15 +51,13 @@ export async function POST(request) {
         const result = await createUser(nume, email, dataNastere, parola)
 
         if(result.success){
-
             const logare = await loginUser(email,parola)
             if(logare.success){
-                return new Response(JSON.stringify({ success: true, redirect: '/' }), {
+                return new Response(JSON.stringify({ success: true}), {
                     status: 200,
                     headers: { "Content-Type": "application/json" },
                 })
             }
-
         }else{
             return new Response(JSON.stringify({message:result.message}),{
                 status:500,
