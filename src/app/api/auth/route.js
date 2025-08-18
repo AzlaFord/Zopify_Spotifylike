@@ -1,11 +1,13 @@
 import createUser from "@/src/app/lib/auth";
-
+import loginUser from "../../lib/login";
+import { redirect } from 'next/navigation'
 export async function POST(request) {
     const data = await request.json()
     const {nume, email, dataNastere, parola} = data
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     try{
+
         if(!nume){
             return new Response(JSON.stringify({message:"nu e completat capul cu numele"}),{
                 status:400,
@@ -49,10 +51,15 @@ export async function POST(request) {
         const result = await createUser(nume, email, dataNastere, parola)
 
         if(result.success){
-            return new Response(JSON.stringify({message:"a mers totul bine user creat",result}),{
-                status:200,
-                headers:{"Content-Type":"application/json"}
-            })
+
+            const logare = await loginUser(email,parola)
+            if(logare.success){
+                return new Response(JSON.stringify({ success: true, redirect: '/' }), {
+                    status: 200,
+                    headers: { "Content-Type": "application/json" },
+                })
+            }
+
         }else{
             return new Response(JSON.stringify({message:result.message}),{
                 status:500,

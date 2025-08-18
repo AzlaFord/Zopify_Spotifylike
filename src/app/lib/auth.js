@@ -22,6 +22,7 @@ async function createUser(nume, email, dataNastere, parola) {
       dataNastere,
       passwordHash: hash,
       createdAt: new Date(),
+      superUser:false
     });
 
     const token = jwt.sign(
