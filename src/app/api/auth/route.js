@@ -2,17 +2,11 @@ import createUser from "@/src/app/lib/auth";
 
 async function POST(request) {
     const data = await request.json()
-    const {nume, prenume, email, dataNastere, parola} = data
+    const {nume, email, dataNastere, parola} = data
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     try{
         if(!nume){
             return new Response(JSON.stringify({message:"nu e completat capul cu numele"}),{
-                status:400,
-                headers:{"Content-Type":"application/json"}
-            })
-        }
-        if(!prenume){
-            return new Response(JSON.stringify({message:"nu e completat capul cu prenumele"}),{
                 status:400,
                 headers:{"Content-Type":"application/json"}
             })

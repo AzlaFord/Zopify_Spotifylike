@@ -6,7 +6,7 @@ const salt = await bcrypt.genSalt(10);
 const hash = await bcrypt.hash("B4c0/\/", salt);
 bcrypt.compareSync("B4c0/\/", hash);
 
-async function createUser(nume, prenume, email, dataNastere, parola) {
+async function createUser(nume, email, dataNastere, parola) {
     try{
         const client = await clientPromise
         const db = client.db("Zopify").collection("users")
@@ -16,7 +16,6 @@ async function createUser(nume, prenume, email, dataNastere, parola) {
 
         const result = await db.insertOne({
             nume,
-            prenume,
             email,
             dataNastere,
             passwordHash: hash,
