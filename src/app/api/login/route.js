@@ -1,5 +1,5 @@
 import loginUser from "@/src/app/lib/login";
-import { redirect } from 'next/navigation'
+import { cookies } from "next/headers";
 
 export async function POST(request) {
     const data = await request.json()
@@ -21,9 +21,17 @@ export async function POST(request) {
         
         const result = await loginUser(email,parola)
 
+
         if (result.success) {
+            cookies().set("token", result.token, {
+                httpOnly: true,
+                secure: true,
+                path: "/",
+                maxAge: 60 * 60 * 24 * 7 
+            });
+
             return new Response(
-                JSON.stringify({ success:true, message: "a mers bine", redirect: "/" }),
+                JSON.stringify({ success: true, message: "a mers bine", redirect: "/" }),
                 { status: 200, headers: { "Content-Type": "application/json" } }
             );
         } else {
