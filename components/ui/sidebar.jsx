@@ -278,6 +278,7 @@ function SidebarInset({
   ...props
 }) {
   return (
+    <>
     <main
       data-slot="sidebar-inset"
       className={cn(
@@ -286,6 +287,8 @@ function SidebarInset({
         className
       )}
       {...props} />
+    </>
+      
   );
 }
 
