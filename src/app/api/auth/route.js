@@ -1,6 +1,6 @@
 import createUser from "@/src/app/lib/auth";
 
-async function POST(request) {
+export async function POST(request) {
     const data = await request.json()
     const {nume, email, dataNastere, parola} = data
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -44,7 +44,7 @@ async function POST(request) {
                 { status: 400, headers: { "Content-Type": "application/json" } }
             );
         }
-        const result = await createUser(data)
+        const result = await createUser(nume, email, dataNastere, parola)
         return new Response(JSON.stringify({message:"a mers totul bine user creat",result}),{
             status:200,
             headers:{"Content-Type":"application/json"}

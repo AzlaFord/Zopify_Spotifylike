@@ -1,18 +1,46 @@
+"use client"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Calendar22 from "./calendar-22"
 import Link from 'next/link'
+import React, { useState } from "react"
 
+async function register(name,mail,birthdate,password) {
+  const result = await fetch("/api/auth",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      nume :name ,
+      email:mail, 
+      dataNastere:birthdate, 
+      parola:password
+    })
+  })
+  const data = await result.json();
+
+}
 export function RegisterForm({
   className,
   ...props
 }) {
+  const [birthdate, setBirthdate] = useState(null);
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const form = e.target
+    const email = form.email.value
+    const password = form.password.value
+    const username = form.Username.value
+    console.log(email,password,username,birthdate)
+    await register(username, email, birthdate ? birthdate.toISOString().split('T')[0] : null, password)
+  }
+  
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Register </h1>
+        <h1 className="text-2xl font-bold">Create an account </h1>
       </div>
       <div className="grid gap-6">
         <div className="grid gap-3">
@@ -20,7 +48,7 @@ export function RegisterForm({
           <Input id="email" type="email" placeholder="m@example.com" required />
         </div>
         <div className="grid gap-3">
-          <Label htmlFor="email">Username</Label>
+          <Label htmlFor="Username">Username</Label>
           <Input id="Username" type="Username" placeholder="Ion" required />
         </div>
         <div className="grid gap-3">
@@ -30,7 +58,10 @@ export function RegisterForm({
           <Input id="password" type="password" required />
         </div>
         <div className="grid gap-3">
-          <Calendar22/>
+          <Calendar22 
+            selected={birthdate} 
+            onSelect={setBirthdate} 
+          />
         </div>
         <Button type="submit" className="w-full">
           Login
@@ -52,7 +83,7 @@ export function RegisterForm({
       </div>
       <div className="text-center text-sm">
         Already have an account ?{" "}
-        <Link className="underline underline-offset-4" href="/login">Login</Link>
+        <Link className="underline underline-offset-4" href="/login">Sign in</Link>
       </div>
     </form>
   );
