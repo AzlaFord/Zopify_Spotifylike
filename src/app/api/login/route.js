@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 export async function POST(request) {
     const data = await request.json()
     const {email,parola} = data
+    
     try{
 
         if(!email){
@@ -20,7 +21,6 @@ export async function POST(request) {
         }
         
         const result = await loginUser(email,parola)
-
 
         if (result.success) {
             const cookieStore = await cookies()

@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from 'next/navigation'
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -24,14 +25,17 @@ export function LoginForm({
   className,
   ...props
 }) {
-
+  const router = useRouter()
   const handleSubmit = async (e) =>{
     e.preventDefault()
     const form = e.target
     const email = form.email.value
     const password = form.password.value
 
-    await login(email,password)
+    const data = await login(email,password)
+    if (data.success) {
+      router.push('/')
+    }
   }
 
   return (

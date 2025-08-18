@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import Calendar22 from "./calendar-22"
 import Link from 'next/link'
 import React, { useState } from "react"
+import { useRouter } from 'next/navigation'
 
 async function register(name,mail,birthdate,password) {
   const result = await fetch("/api/auth",{
@@ -26,7 +27,7 @@ export function RegisterForm({
   ...props
 }) {
   const [birthdate, setBirthdate] = useState(null);
-
+  const router = useRouter()
   async function handleSubmit(e) {
     e.preventDefault()
     const form = e.target
@@ -34,7 +35,10 @@ export function RegisterForm({
     const password = form.password.value
     const username = form.Username.value
     
-    await register(username, email, birthdate ? birthdate.toISOString().split('T')[0] : null, password)
+    const data = await register(username, email, birthdate ? birthdate.toISOString().split('T')[0] : null, password)
+    if(data.success){
+      router.push('/')
+    }
   }
   
   return (
