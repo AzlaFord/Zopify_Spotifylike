@@ -1,18 +1,38 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
 
+async function login(email,password) {
+  const result = await fetch("/api/login",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      email,
+      parola:password
+    })
+  })
+  const data = result.json()
+}
 
 export function LoginForm({
   className,
   ...props
-}) 
+}) {
+  const handleSubmit = async (e) =>{
+    e.preventDefault()
+    const form = e.target
+    const email = form.email.value
+    const password = form.password.value
 
-{
+    await login(email,password)
+  }
+
   return (
-    <form   className={cn("flex flex-col gap-6", className)} {...props}>
+    <form onSubmit={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-muted-foreground text-sm text-balance">

@@ -1,6 +1,6 @@
 import loginUser from "@/src/app/lib/login";
 
-async function POST(request) {
+export async function POST(request) {
     const data = await request.json()
     const {email,parola} = data
     try{
@@ -16,7 +16,7 @@ async function POST(request) {
                 headers:{"Content-Type":"application/json"}
             })
         }
-        const result = await loginUser({email,parola})
+        const result = await loginUser(email,parola)
         return new Response(JSON.stringify({message:"a mers bine",token:result.token}),{
             status:200,
             headers:{"Content-Type":"application/json"}            
