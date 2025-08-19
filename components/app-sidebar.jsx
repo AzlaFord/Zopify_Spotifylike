@@ -39,7 +39,6 @@ export function AppSidebar({
       console.log("Fetched user:", data)
     },
   })
-  console.log("userData:", userData)
 
   return (
     <Sidebar

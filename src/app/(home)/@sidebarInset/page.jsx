@@ -6,7 +6,8 @@ export default function SideBarInset(){
                 <div className="bg-muted/100 aspect-video rounded-xl" />
                 <div className="bg-muted/100 aspect-video rounded-xl" />
             </div>
-            <div className="bg-muted/100 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+            <div className="bg-muted/100 min-h-[95vh] flex-1 rounded-xl md:min-h-min" />
+           <div className="bg-muted/100 min-h-[5vh] flex-1 md:max-h-[6vh]" />
         </div>
     
     </>)

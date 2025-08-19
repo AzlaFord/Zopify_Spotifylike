@@ -9,11 +9,9 @@ export default async function getUserFromCookie(){
     if(!token){return {success:false,message:"nu exista cookie"}}
     try{
         const payload = jwt.verify(token,process.env.JWT_SECRET)
-        console.log(payload)
         const client = await clientPromise
         const db = client.db("Zopify")
         const user = await db.collection("users").findOne({ _id: new ObjectId(payload.id) })
-
 
         if (!user) return { success: false, message: "User not found" };
 
