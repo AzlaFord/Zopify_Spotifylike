@@ -7,7 +7,6 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-
 export default function RootLayout({ appsidebar, sidebarInset}) {
 
   return (
@@ -24,5 +23,6 @@ export default function RootLayout({ appsidebar, sidebarInset}) {
           </SidebarProvider>
         </div>
     </ClientQueryProvider>
+
   );
 }
