@@ -23,11 +23,11 @@ async function createUser(nume, email, dataNastere, parola) {
       passwordHash: hash,
       createdAt: new Date(),
       superUser:false,
-      avatar:false
+      avatar:"nu e poza"
     });
 
     const token = jwt.sign(
-      { userId: result.insertedId, email },
+      { userId: result.insertedId, email,nume,avatar },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );

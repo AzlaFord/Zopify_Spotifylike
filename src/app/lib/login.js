@@ -14,7 +14,7 @@ async function loginUser(email,parola ) {
         if (!isMatch) return { success: false, message: "Parola gresita" };
 
         const token = jwt.sign(
-            { id: user._id, email: user.email },
+            { id: user._id, email: user.email,name:user.nume,avatar:user.avatar },
             process.env.JWT_SECRET,
             { expiresIn: "7d" }
         );

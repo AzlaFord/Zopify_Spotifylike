@@ -25,39 +25,22 @@ import { useQuery } from "@tanstack/react-query"
 async function fetchUser() {
   const res = await fetch("/api/me")
   if (!res.ok) throw new Error("Failed to fetch user")
-  return res.json()
-}
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "asasam@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-    
-  ],
+  const data = await res.json()
+  return data
 }
 
 export function AppSidebar({
   ...props
 }) {
+  const { data: userData } = useQuery({
+    queryKey: ["user"],
+    queryFn: fetchUser,
+    onSuccess: (data) => {
+      console.log("Fetched user:", data)
+    },
+  })
+  console.log("userData:", userData)
+
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
@@ -81,10 +64,10 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
+        {/* <NavProjects projects={} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData?.user} />
       </SidebarFooter>
     </Sidebar>
   );
