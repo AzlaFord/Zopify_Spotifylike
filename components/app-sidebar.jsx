@@ -3,9 +3,6 @@
 import * as React from "react"
 import {
   Command,
-  Frame,
-  Map,
-  PieChart,
 } from "lucide-react"
 
 import { NavProjects } from "@/components/nav-projects"
@@ -24,7 +21,7 @@ import { useQuery } from "@tanstack/react-query"
 
 async function fetchUser() {
   const res = await fetch("/api/me")
-  if (!res.ok) throw new Error("Failed to fetch user")
+  if (!res.ok) throw new Error("ceva nu a mers bine la fetch user/me")
   const data = await res.json()
   return data
 }
@@ -34,10 +31,7 @@ export function AppSidebar({
 }) {
   const { data: userData } = useQuery({
     queryKey: ["user"],
-    queryFn: fetchUser,
-    onSuccess: (data) => {
-      console.log("Fetched user:", data)
-    },
+    queryFn: fetchUser
   })
 
   return (

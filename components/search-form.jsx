@@ -12,7 +12,7 @@ export function SearchForm({
         <Label htmlFor="search" className="sr-only">
           Search
         </Label>
-        <SidebarInput id="search" placeholder="Type to search..." className="h-8 pl-7" />
+        <SidebarInput  id="search" placeholder="Type to search..." autoComplete="off" className="h-10 pl-7 mx-auto w-full sm:w-116" />
         <Search
           className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none" />
       </div>

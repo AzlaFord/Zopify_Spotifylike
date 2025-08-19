@@ -2,11 +2,8 @@
 
 import {
   BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
-  Sparkles,
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -29,13 +26,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-
+import { Separator } from "@radix-ui/react-dropdown-menu"
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
   return (
+
     <SidebarMenu>
+      <DropdownMenuSeparator />
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -65,8 +64,7 @@ export function NavUser({
                   src={user?.avatar || "/avatars/shadcn.jpg"} 
                   alt={user?.nume || "User"} 
                 />
-
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user?.nume}</span>
@@ -75,10 +73,14 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <BadgeCheck />
+                Dashboard
+              </DropdownMenuItem>
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <BadgeCheck />
-                Account
+                Settings
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
