@@ -1,7 +1,8 @@
 "use client"
 
 import { SidebarIcon } from "lucide-react"
-
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 import { SearchForm } from "@/components/search-form"
 import {
   Breadcrumb,
@@ -14,9 +15,17 @@ import {
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useSidebar } from "@/components/ui/sidebar"
+import { useState, useEffect } from "react";
+
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar()
+  const {theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), []);
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header
@@ -40,6 +49,13 @@ export function SiteHeader() {
           </BreadcrumbList>
         </Breadcrumb>
         <SearchForm className="w-full sm:mx-auto sm:w-auto" />
+        <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+          {theme === "dark" ? (
+            <Sun  />
+          ) : (
+            <Moon />
+          )}
+        </Button>
       </div>
     </header>
   );

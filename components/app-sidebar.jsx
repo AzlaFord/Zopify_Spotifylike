@@ -15,8 +15,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "@/components/ui/sidebar"
-
+import { Separator } from "@radix-ui/react-dropdown-menu"
 import { useQuery } from "@tanstack/react-query"
 
 async function fetchUser() {
@@ -54,6 +55,7 @@ export function AppSidebar({
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
+            <Separator orientation="horizontal" className="mr-2 h-4" />
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>

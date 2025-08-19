@@ -26,13 +26,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { Separator } from "@radix-ui/react-dropdown-menu"
+
 export function NavUser({
   user
 }) {
   const { isMobile } = useSidebar()
   return (
-
     <SidebarMenu>
       <DropdownMenuSeparator />
       <SidebarMenuItem>
