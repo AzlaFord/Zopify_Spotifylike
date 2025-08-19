@@ -20,6 +20,14 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
+import { useQuery } from "@tanstack/react-query"
+
+async function fetchUser() {
+  const res = await fetch("/api/me")
+  if (!res.ok) throw new Error("Failed to fetch user")
+  return res.json()
+}
+
 const data = {
   user: {
     name: "shadcn",

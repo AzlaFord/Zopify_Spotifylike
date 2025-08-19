@@ -1,7 +1,7 @@
 import "../styles/globals.css"
 
 export const metadata = {
-  title: "Login",
+  title: "Zopify",
   description: "Spotify like app",
 }
 

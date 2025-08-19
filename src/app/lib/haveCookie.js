@@ -1,11 +1,19 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import clientPromise from "@/lib/mongodb";
 
-export function getUserFromCookie(){
-    const token = cookies().get("token")?.value
+export default async function getUserFromCookie(){
+    const token = await cookies().get("token")?.value
     if(!token){return {success:false,message:"nu exista cookie"}}
     try{
-        const user = jwt.verify(token,process.env.JWT_SECRET)
+        const payload = jwt.verify(token,process.env.JWT_SECRET)
+        
+        const client = await clientPromise
+        const db = client.db("Zopify")
+        const user = await db.collection("users").findOne({ _id: payload.userId })
+
+        if (!user) return { success: false, message: "User not found" };
+
         return {success:true,user}
     }catch(err){
         return {success:false,message:err.message}
