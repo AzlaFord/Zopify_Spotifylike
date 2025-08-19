@@ -1,13 +1,15 @@
-import "../styles/globals.css"
 export const metadata = {
-  title:"Zopify",
-  description:"Spotify like app"
+  title:"Login",
+  description:"App"
 }
+
 
 export default function RootLayout({ children}) {
   return (
     <html lang="ro">
-      <body>{children}</body>
+      <body >
+        {children}
+      </body>
     </html>
   );
 }
