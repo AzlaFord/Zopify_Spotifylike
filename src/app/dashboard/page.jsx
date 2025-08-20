@@ -1,17 +1,13 @@
 
 import "../../styles/globals.css"
-import { AppSidebar } from "@/components/app-sidebar"
-
 import { ScrollArea } from "@/components/ui/scroll-area"
-
 import { SiteHeaderDashboard } from "@/components/ui/site-headerDashbaord"
 import {
   SidebarInset,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { useQuery } from "@tanstack/react-query"
 
-
+import DataSection from "@/components/DataSection"
 export default function Dashboard(){
 
     return (
@@ -22,11 +18,8 @@ export default function Dashboard(){
                 <SidebarInset>
                 <SiteHeaderDashboard />    
                 <div className="flex flex-1 flex-col gap-4 p-4 relative">
-                    <div className="grid auto-rows-min gap-4 md:grid-cols-4">
-                        <div className="bg-muted/100 aspect-video rounded-xl" ></div>
-                        <div className="bg-muted/100 aspect-video rounded-xl" ></div>
-                        <div className="bg-muted/100 aspect-video rounded-xl" />
-                        <div className="bg-muted/100 aspect-video rounded-xl" />
+                    <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+                        <DataSection/>
                     </div>
                     <ScrollArea className="bg-muted/100 flex-1 rounded-xl md:min-h-min mb-[5vh]">
                         <div className="grid auto-rows-min  gap-1 md:grid-cols-4 m-2">

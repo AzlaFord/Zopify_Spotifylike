@@ -15,7 +15,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query"
 async function fetchUser() {
