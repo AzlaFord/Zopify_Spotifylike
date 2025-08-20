@@ -74,7 +74,9 @@ export function NavUser({
             <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <BadgeCheck />
-                Dashboard
+                <Link href="/dashboard">
+                  Dashboard
+                </Link>
               </DropdownMenuItem>
             <DropdownMenuGroup>
               <DropdownMenuItem>

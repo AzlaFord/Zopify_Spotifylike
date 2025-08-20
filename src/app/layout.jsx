@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 
-
 export const metadata = {
   title: "Zopify",
   description: "Spotify like app",
