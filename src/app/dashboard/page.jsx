@@ -19,7 +19,6 @@ async function getData() {
       status: "pending",
       email: "m@example.com",
     },
-    // ...
   ]
 }
 
