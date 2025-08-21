@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Card,
   CardAction,
@@ -5,9 +7,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
+import { useState } from "react"
 import { UsersRound,Music,UserPen } from "lucide-react"
+import { useQuery } from '@tanstack/react-query'
+
+const fetchUsers = async () =>{
+    const data = await fetch("/api/getData/getUsers")
+    if (!data.ok) throw new Error('Eroare la fetch');
+    const result = data.json()
+    return result
+}
+
 export default function DataSection(){
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['users'],
+        queryFn: fetchUsers,
+    });
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>{error.message}</div>;
+
     return(
         <>
         <Card>
@@ -16,7 +34,7 @@ export default function DataSection(){
                 <CardAction><UsersRound /></CardAction>
             </CardHeader>
             <CardContent>
-                Total Users :
+                Total Users : {data.data}
             </CardContent>
         </Card>
         <Card>
