@@ -23,7 +23,35 @@ export default function DataSection(){
         queryKey: ['users'],
         queryFn: fetchUsers,
     });
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return <>
+                <Card>
+            <CardHeader>
+                <CardTitle>Users</CardTitle>
+                <CardAction><UsersRound /></CardAction>
+            </CardHeader>
+            <CardContent>
+                Total Users 
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Songs</CardTitle>
+                <CardAction><Music /></CardAction>
+            </CardHeader>
+            <CardContent>
+                <p>Total Songs:</p>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Artists</CardTitle>
+                <CardAction><UserPen /></CardAction>
+            </CardHeader>
+            <CardContent>
+                <p>Total Artists:</p>
+            </CardContent>
+        </Card>   
+    </>
     if (error) return <div>{error.message}</div>;
 
     return(
