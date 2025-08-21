@@ -23,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { DialogAddSong } from "./dialogButton"
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([])
@@ -56,7 +57,8 @@ export function DataTable({ columns, data }) {
           }
           className="max-w-sm"
         />
-                <DropdownMenu>
+        <DropdownMenu>
+          <DialogAddSong />
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               Columns
