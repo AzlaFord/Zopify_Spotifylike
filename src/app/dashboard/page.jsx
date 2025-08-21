@@ -1,5 +1,7 @@
 
 import "../../styles/globals.css"
+import { columns, Payment } from "./columns"
+import { DataTable } from "./data-table"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { SiteHeaderDashboard } from "@/components/ui/site-headerDashbaord"
 import {
@@ -8,7 +10,21 @@ import {
 } from "@/components/ui/sidebar"
 
 import DataSection from "@/components/DataSection"
-export default function Dashboard(){
+
+async function getData() {
+  return [
+    {
+      id: "728ed52f",
+      amount: 100,
+      status: "pending",
+      email: "m@example.com",
+    },
+    // ...
+  ]
+}
+
+export default async function Dashboard(){
+    const data = await getData();
 
     return (
         <>
@@ -22,8 +38,8 @@ export default function Dashboard(){
                         <DataSection/>
                     </div>
                     <ScrollArea className="bg-muted/100 flex-1 rounded-xl md:min-h-min mb-[5vh]">
-                        <div className="grid auto-rows-min  gap-1 md:grid-cols-4 m-2">
-
+                        <div className="grid auto-rows-min  gap-1 md:grid-cols-1 m-2">
+                            <DataTable columns={columns} data={data} />
                         </div>
                     </ScrollArea>
                 </div>
