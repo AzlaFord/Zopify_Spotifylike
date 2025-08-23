@@ -1,4 +1,4 @@
-import uploadSongHandler from "@/src/app/lib/storageFirebase";
+import uploadSong from "../../lib/uploadSong";
 
 async function POST(request) {
     try{
@@ -41,7 +41,14 @@ async function POST(request) {
             })
         }
 
-        const result = await uploadSongHandler(fileAudio, fileCover, title, artist, album)
+        const result = await uploadSong({
+            title,
+            album,
+            artist,
+            audioFile: fileAudio,
+            coverFile: fileCover
+        })
+
         return new Response(JSON.stringify({message:"a mers totul bine ",result}),{
             status:200,
             headers:{"Content-Type":"application/json"}
