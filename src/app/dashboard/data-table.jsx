@@ -26,6 +26,7 @@ import {
 import { DialogAddSong } from "./dialogButton"
 
 export function DataTable({ columns, data }) {
+
   const [sorting, setSorting] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
   const [columnVisibility, setColumnVisibility] =useState({})

@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,49 +16,128 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function DialogAddSong() {
+  const [fileAudio, setAudio] = useState(null)
+  const [fileCover, setCover] = useState(null)
+  const [title, setTitle] = useState("")
+  const [artist, setArtist] = useState("")
+  const [album, setAlbum] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const submitSong = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    const formData = new FormData()
+    formData.append("title", title)
+    formData.append("album", album)
+    formData.append("artist", artist)
+    formData.append("fileAudio", fileAudio)
+    formData.append("fileCover", fileCover)
+
+    try {
+      const res = await fetch("/api/uploadSong", {
+        method: "POST",
+        body: formData,
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        alert("Error: " + data.message)
+      } else {
+        alert("Song uploaded successfully!")
+        // Reset form
+        setTitle("")
+        setArtist("")
+        setAlbum("")
+        setAudio(null)
+        setCover(null)
+      }
+    } catch (err) {
+      alert("Error: " + err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <Dialog>
-      <form>
-        <DialogTrigger asChild>
-          <Button className="ml-3" >Add Song</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+      <DialogTrigger asChild>
+        <Button>Add Song</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <form onSubmit={submitSong} encType="multipart/form-data">
           <DialogHeader>
             <DialogTitle>Add Music</DialogTitle>
-            <DialogDescription>
-                Add color to the app
-            </DialogDescription>
+            <DialogDescription>Add a song to your library</DialogDescription>
           </DialogHeader>
+
           <div className="grid gap-4">
-            <div className="grid gap-3">
-              <Label htmlFor="Song">Name</Label>
-              <Input id="Song" name="Song" placeholder="SongName" />
+            <div className="grid gap-1">
+              <Label htmlFor="Song">Title</Label>
+              <Input
+                id="Song"
+                name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="I Wonder"
+                required
+              />
             </div>
-            <div className="grid gap-3">
+            <div className="grid gap-1">
               <Label htmlFor="Album">Album</Label>
-              <Input id="Album" name="Album" placeholder="Graduation" />
-            </div>            
-            <div className="grid gap-3">
+              <Input
+                id="Album"
+                name="album"
+                value={album}
+                onChange={(e) => setAlbum(e.target.value)}
+                placeholder="Graduation"
+                required
+              />
+            </div>
+            <div className="grid gap-1">
               <Label htmlFor="Artist">Artist</Label>
-              <Input id="Artist" name="Artist" placeholder="Kanye West" />
+              <Input
+                id="Artist"
+                name="artist"
+                value={artist}
+                onChange={(e) => setArtist(e.target.value)}
+                placeholder="Kanye West"
+                required
+              />
             </div>
-            <div className="grid gap-3">
-              <Label htmlFor="Cover">Cover img</Label>
-              <Input type="file" id="Cover" name="Cover" />
+            <div className="grid gap-1">
+              <Label htmlFor="Cover">Cover Image</Label>
+              <Input
+                type="file"
+                id="Cover"
+                name="fileCover"
+                onChange={(e) => setCover(e.target.files[0])}
+                accept="image/*"
+                required
+              />
             </div>
-            <div className="grid gap-3">
-              <Label htmlFor="songfile">Song</Label>
-              <Input type="file" id="songfile" name="songfile"  />
+            <div className="grid gap-1">
+              <Label htmlFor="songfile">Song File</Label>
+              <Input
+                type="file"
+                id="songfile"
+                name="fileAudio"
+                onChange={(e) => setAudio(e.target.files[0])}
+                accept="audio/*"
+                required
+              />
             </div>
           </div>
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Uploading..." : "Done"}
+            </Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   )
 }
