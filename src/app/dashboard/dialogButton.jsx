@@ -41,21 +41,9 @@ export function DialogAddSong() {
       })
 
       const data = await res.json()
-      if (!res.ok) {
-        alert("Error: " + data.message)
-      } else {
-        alert("Song uploaded successfully!")
-        // Reset form
-        setTitle("")
-        setArtist("")
-        setAlbum("")
-        setAudio(null)
-        setCover(null)
-      }
+
     } catch (err) {
       alert("Error: " + err.message)
-    } finally {
-      setLoading(false)
     }
   }
 
