@@ -50,18 +50,18 @@ export function DialogAddSong() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Song</Button>
+        <Button className="ml-3">Add Song</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={submitSong} encType="multipart/form-data">
           <DialogHeader>
             <DialogTitle>Add Music</DialogTitle>
-            <DialogDescription>Add a song to your library</DialogDescription>
+            <DialogDescription className="mt-0.1 mb-1">Add a song to your library</DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4">
             <div className="grid gap-1">
-              <Label htmlFor="Song">Title</Label>
+              <Label className="mt-3" htmlFor="Song">Title</Label>
               <Input
                 id="Song"
                 name="title"
@@ -116,7 +116,7 @@ export function DialogAddSong() {
               />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="mt-3">
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
