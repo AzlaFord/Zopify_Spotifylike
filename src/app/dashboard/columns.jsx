@@ -16,6 +16,13 @@ export const columns = [
   {
     accessorKey: "cover_url",
     header: "Cover",
+    cell: ({ row }) => (
+      <img 
+        src={row.original.cover_url} 
+        alt="cover" 
+        className="w-12 h-12 object-cover rounded" 
+      />
+    ),
   },
   {
     accessorKey: "title",
@@ -37,7 +44,7 @@ export const columns = [
   },
   {
     accessorKey: "album",
-    header: () => <div className="text-right">Album</div>,
+    header:"Album"
   },
     {
     id: "actions",
