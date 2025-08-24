@@ -15,13 +15,24 @@ const fetchUsers = async () =>{
     const data = await fetch("/api/getData/getUsers")
     if (!data.ok) throw new Error('Eroare la fetch');
     const result = data.json()
+    console.log(result)
     return result
 }
-
+const fetchSongsArtists = async () =>{
+    const data = await fetch("/api/getData/getSongsArtists")
+    if(!data.ok){throw new Error("Eroare la fetch")}
+    const result = await data.json()
+    return result
+}
+const fetchAllData = async () =>{
+    const users = await fetchUsers()
+    const SongsArtists = await fetchSongsArtists()
+    return {users,SongsArtists}
+}
 export default function DataSection(){
     const { data, isLoading, error } = useQuery({
-        queryKey: ['users'],
-        queryFn: fetchUsers,
+        queryKey: ['allData'],
+        queryFn: fetchAllData,
     });
     if (isLoading) return <>
                 <Card>
@@ -62,7 +73,7 @@ export default function DataSection(){
                 <CardAction><UsersRound /></CardAction>
             </CardHeader>
             <CardContent>
-                Total Users : {data.data}
+                Total Users : {data.users.data}
             </CardContent>
         </Card>
         <Card>
@@ -71,7 +82,7 @@ export default function DataSection(){
                 <CardAction><Music /></CardAction>
             </CardHeader>
             <CardContent>
-                <p>Total Songs:</p>
+                <p>Total Songs: {data.SongsArtists.songsCount}</p>
             </CardContent>
         </Card>
         <Card>
@@ -80,7 +91,7 @@ export default function DataSection(){
                 <CardAction><UserPen /></CardAction>
             </CardHeader>
             <CardContent>
-                <p>Total Artists:</p>
+                <p>Total Artists: {data.SongsArtists.artistsCount}</p>
             </CardContent>
         </Card>    
         </>
