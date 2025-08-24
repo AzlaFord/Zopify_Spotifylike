@@ -17,9 +17,7 @@ async function getData() {
   if(!data.ok){
     throw new Error("nu am mers ceva bine")
   }
-
   const result = await data.json()
-  console.log(result)
   return result
 }
 

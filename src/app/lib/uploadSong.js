@@ -6,33 +6,35 @@ const supabaseAdmin = createClient(
 )
 
 export default async function uploadSong({ title, album, artist, audioFile, coverFile }) {
-  const { data: audioData, error: audioError } = await supabaseAdmin.storage
-      .from('MusicApp')
-      .upload(`audio/${audioFile.name}`, audioFile)
-  if (audioError) throw audioError
+    
+    const timestamp = Date.now();
+    const { data: audioData, error: audioError } = await supabaseAdmin.storage
+    .from('MusicApp')
+    .upload(`audio/${audioFile.name}`, audioFile)
+    if (audioError) throw audioError
+    const coverPath = `${timestamp}-${encodeURIComponent(coverFile.name)}`;
+    const { data: coverData, error: coverError } = await supabaseAdmin.storage
+    .from('MusicApp')
+    .upload(`covers/${coverPath}`, coverFile)
+    if (coverError) throw coverError
+    
+    const { data: audioDataUrl } = supabaseAdmin.storage
+    .from('MusicApp')
+    .getPublicUrl(`audio/${audioFile.name}`)
+    const audioUrl = audioDataUrl.publicUrl
+    
+    const { data: coverDataUrl } = supabaseAdmin.storage
+    .from('MusicApp')
+    .getPublicUrl(`covers/${coverFile.name}`)
+    const coverUrl = coverDataUrl.publicUrl
 
-  const { data: coverData, error: coverError } = await supabaseAdmin.storage
-      .from('MusicApp')
-      .upload(`covers/${coverFile.name}`, coverFile)
-  if (coverError) throw coverError
+    console.log('audioUrl:', audioUrl)
+    console.log('coverUrl:', coverUrl)
 
-  const { data: audioDataUrl } = supabaseAdmin.storage
-      .from('MusicApp')
-      .getPublicUrl(`audio/${audioFile.name}`)
-  const audioUrl = audioDataUrl.publicUrl
+    const { data, error } = await supabaseAdmin.from('Songs').insert([
+        { title, album, artist, audio_url: audioUrl, cover_url: coverUrl }
+    ])
+    if (error) throw error
 
-  const { data: coverDataUrl } = supabaseAdmin.storage
-      .from('MusicApp')
-      .getPublicUrl(`covers/${coverFile.name}`)
-  const coverUrl = coverDataUrl.publicUrl
-
-  console.log('audioUrl:', audioUrl)
-  console.log('coverUrl:', coverUrl)
-
-  const { data, error } = await supabaseAdmin.from('Songs').insert([
-      { title, album, artist, audio_url: audioUrl, cover_url: coverUrl }
-  ])
-  if (error) throw error
-
-  return data
+    return data
 }

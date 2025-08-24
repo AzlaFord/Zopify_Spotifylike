@@ -15,7 +15,6 @@ const fetchUsers = async () =>{
     const data = await fetch("/api/getData/getUsers")
     if (!data.ok) throw new Error('Eroare la fetch');
     const result = data.json()
-    console.log(result)
     return result
 }
 const fetchSongsArtists = async () =>{

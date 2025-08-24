@@ -9,7 +9,6 @@ export async function POST(request) {
     const title = formData.get("title");
     const artist = formData.get("artist");
     const album = formData.get("album");
-
     if (!fileAudio) {
       return new Response(JSON.stringify({ message: "Nu exista file audio" }), {
         status: 400,
@@ -41,6 +40,13 @@ export async function POST(request) {
       });
     }
 
+    console.log(formData.get("title")); // verifică în consola serverului
+    console.log(formData.get("fileAudio")); // ar trebui să fie File
+    console.log(title,
+      album,
+      artist,
+      fileAudio,
+      fileCover,)
     const result = await uploadSong({
       title,
       album,
