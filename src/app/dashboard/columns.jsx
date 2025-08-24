@@ -14,35 +14,30 @@ import { ColumnDef } from "@tanstack/react-table"
 
 export const columns = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "cover_url",
+    header: "Cover",
   },
   {
-    accessorKey: "email",
+    accessorKey: "title",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )
     },
   },
   {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
- 
-      return <div className="text-right font-medium">{formatted}</div>
-    },
+    accessorKey: "artist",
+    header: "Artist",
+  },
+  {
+    accessorKey: "album",
+    header: () => <div className="text-right">Album</div>,
   },
     {
     id: "actions",

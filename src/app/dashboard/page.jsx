@@ -12,14 +12,15 @@ import {
 import DataSection from "@/components/DataSection"
 
 async function getData() {
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-  ]
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/getData/getDataTable`; 
+  const data = await fetch(url)
+  if(!data.ok){
+    throw new Error("nu am mers ceva bine")
+  }
+
+  const result = await data.json()
+  console.log(result)
+  return result
 }
 
 export default async function Dashboard(){
@@ -38,7 +39,7 @@ export default async function Dashboard(){
                     </div>
                     <ScrollArea className="bg-muted/100 flex-1 rounded-xl md:min-h-min mb-[5vh]">
                         <div className="grid auto-rows-min  gap-1 md:grid-cols-1 m-2">
-                            <DataTable columns={columns} data={data} />
+                            <DataTable columns={columns} data={data.data} />
                         </div>
                     </ScrollArea>
                 </div>
