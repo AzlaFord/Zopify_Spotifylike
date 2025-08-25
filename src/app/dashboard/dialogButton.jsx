@@ -41,9 +41,13 @@ export function DialogAddSong() {
       })
 
       const data = await res.json()
-
+      if(data.ok){
+        setLoading(false)
+      }
     } catch (err) {
       alert("Error: " + err.message)
+    } finally {
+      setLoading(false) 
     }
   }
 
