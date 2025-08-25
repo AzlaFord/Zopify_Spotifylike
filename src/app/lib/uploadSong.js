@@ -12,7 +12,7 @@ export default async function uploadSong({ title, album, artist, audioFile, cove
     .from('MusicApp')
     .upload(`audio/${audioFile.name}`, audioFile)
     if (audioError) throw audioError
-    const coverPath = `${timestamp}-${encodeURIComponent(coverFile.name)}`;
+    const coverPath = `${timestamp}-${coverFile.name}`;
     const { data: coverData, error: coverError } = await supabaseAdmin.storage
     .from('MusicApp')
     .upload(`covers/${coverPath}`, coverFile)
@@ -25,7 +25,7 @@ export default async function uploadSong({ title, album, artist, audioFile, cove
     
     const { data: coverDataUrl } = supabaseAdmin.storage
     .from('MusicApp')
-    .getPublicUrl(`covers/${coverFile.name}`)
+    .getPublicUrl(`covers/${timestamp}-${coverFile.name}`)
     const coverUrl = coverDataUrl.publicUrl
 
     console.log('audioUrl:', audioUrl)
