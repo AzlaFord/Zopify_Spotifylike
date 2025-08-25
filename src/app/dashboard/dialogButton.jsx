@@ -60,7 +60,7 @@ export function DialogAddSong() {
         <form onSubmit={submitSong} encType="multipart/form-data">
           <DialogHeader>
             <DialogTitle>Add Music</DialogTitle>
-            <DialogDescription className="mt-0.1 mb-1">Add a song to your library</DialogDescription>
+            <DialogDescription className="mt-0.1 mb-1">Add a song to the database</DialogDescription>
           </DialogHeader>
 
           <div className="grid gap-4">
